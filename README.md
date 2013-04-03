@@ -1,4 +1,3 @@
-
 ## IronMQ New Relic Agent
 
 **Who:** Any user of IronMQ - a highly available cloud message queue service by [Iron.io](http://iron.io).
