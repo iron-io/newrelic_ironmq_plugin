@@ -1,7 +1,7 @@
 newrelic:
   license: 'LICENSE_KEY'
   guid: ''
-  version: 1
+  version: '1'
 
 iron:
   token: 'IRON_TOKEN'
