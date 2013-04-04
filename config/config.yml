@@ -1,4 +1,8 @@
-newrelic_license:  'NEWRELIC_LICENSE_KEY'
+newrelic:
+  license: 'LICENSE_KEY'
+  guid: ''
+  version: 1
+
 iron:
   token: 'IRON_TOKEN'
   project_id: 'IRON_PROJECT_ID'
