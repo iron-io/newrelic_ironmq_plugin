@@ -1,3 +1,7 @@
-config/config_prod.yml
+config.yml
 iron.json
 .idea/
+Gemfile.lock
+.rvmrc
+.DS_Store
+TAGS
