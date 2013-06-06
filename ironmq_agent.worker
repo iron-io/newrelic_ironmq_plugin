@@ -1,0 +1,14 @@
+runtime 'ruby'
+exec 'ironmq_agent.rb'
+name 'IronMQ Agent (New Relic)'
+
+# uncomment when newrelic-platform gem will be public
+gemfile 'Gemfile'
+
+#gem 'iron_mq'
+#gem 'iron_cache'
+
+# Requires manual installation of the New Relic plaform gem (platform is in closed beta)
+# https://github.com/newrelic-platform/iron_sdk
+#gem 'newrelic_platform'
+
