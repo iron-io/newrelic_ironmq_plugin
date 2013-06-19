@@ -97,7 +97,7 @@ queues.each do |q|
     dur = duration(processed_at, up_to)
     rate = ((total - last_total) / dur.to_f).round(2)
   end
-  @cache.put(key, size)
+  @cache.put(key, total)
   puts "Total was #{last_total}, now #{total}  [Rate #{rate} messages/sec]"
 
   component.add_metric "#{name}/Rate", 'messages/sec', rate
