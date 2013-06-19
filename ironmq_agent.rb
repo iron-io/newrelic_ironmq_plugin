@@ -18,8 +18,8 @@ end
 
 
 @new_relic = NewRelic::Client.new(:license => config['newrelic']['license'],
-                                  :guid => config['newrelic']['guid'],
-                                  :version => config['newrelic']['version'])
+                                  :guid => 'io.iron.mq',
+                                  :version => '2')
 
 
 # Helpers

@@ -1,7 +1,5 @@
 newrelic:
   license: ''
-  guid: 'io.iron.mq'
-  version: '2'
 
 iron:
   project_id: 'Iron.io Project ID'
