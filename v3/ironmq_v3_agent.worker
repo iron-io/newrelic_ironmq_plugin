@@ -1,7 +1,0 @@
-runtime 'ruby'
-exec 'ironmq_v3_agent.rb'
-
-# uncomment when newrelic-platform gem will be public
-gemfile 'Gemfile'
-
-#remote

@@ -1,6 +1,12 @@
 newrelic:
   license: ''
 
+iron_mq:
+  project_id: 'mq-project-id'
+  token: "mq-project-token"
+  host: "iron-io-host-example.iron.io"
+  port: 443
+
 iron:
-  project_id: 'Iron.io Project ID'
-  token: 'Iron.io Token'
+  project_id: 'cache-project-id'
+  token: 'cache-project-token'

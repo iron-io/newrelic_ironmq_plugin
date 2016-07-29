@@ -1,6 +1,6 @@
 runtime 'ruby'
 exec 'ironmq_agent.rb'
-name 'IronMQ Agent (New Relic)'
+name 'IronMQ V3 Agent (New Relic)'
 
 # uncomment when newrelic-platform gem will be public
 gemfile 'Gemfile'
@@ -12,3 +12,4 @@ gemfile 'Gemfile'
 # https://github.com/newrelic-platform/iron_sdk
 #gem 'newrelic_platform'
 
+full_remote_build true

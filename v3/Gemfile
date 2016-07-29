@@ -1,6 +1,0 @@
-source 'https://rubygems.org'
-
-#gem 'iron_mq'
-gem 'iron_mq', git: 'https://github.com/iron-io/iron_mq_ruby.git', branch: 'v3'
-gem 'iron_cache'
-gem 'newrelic_platform'

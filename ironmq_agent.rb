@@ -1,16 +1,15 @@
 require 'iron_mq'
 require 'iron_cache'
 require 'yaml'
-# Requires manual installation of the New Relic plaform gem (platform is in closed beta)
-# https://github.com/newrelic-platform/iron_sdk
 require 'newrelic_platform'
 
 # Un-comment to test/debug locally
-# def config; @config ||= YAML.load_file('./ironmq_agent.config.yml'); end
+# @config ||= YAML.load_file('./ironmq_agent.config.yml')
+# config = @config
 
 # Setup
 begin
-  @ironmq = IronMQ::Client.new(config['iron'])
+  @ironmq = IronMQ::Client.new(config['iron_mq'])
   @cache = IronCache::Client.new(config['iron']).cache('newrelic-ironmq-agent')
 rescue Exception => err
   abort 'Iron.io credentials are wrong.'
@@ -58,17 +57,20 @@ def processed_at(processed = nil)
   end
 end
 
-
+p "########################################### START"
 # Process
 collector = @new_relic.new_collector
 component = collector.component('Queues')
 
 queues = []
-page = 0
 per_page = 100
 n_results = 0
+last = nil
+
 begin
-  qs = @ironmq.queues_list(page: page, per_page: per_page)
+  qs = @ironmq.queues_list({previous: last, per_page: per_page})
+
+  last = qs.last.respond_to?(:name) ? qs.last.name : qs.last
   queues |= qs
   n_results = qs.size
 end while n_results == per_page
@@ -77,12 +79,11 @@ end while n_results == per_page
 overall = {size: 0, total: 0, rate: 0.0}
 queues.each do |q|
   info = q.info
-  size = info.size
-  total = info.total_messages
-  name = info.name
+  size = info["size"]
+  total = info["total_messages"]
+  name = info["name"]
 
   # Add Queue Size Component
-  puts "\nFound queue: #{name} [#{size} size, #{total} total messages]"
   component.add_metric "#{name}/Total", 'messages', total
   overall[:total] += total
   component.add_metric "#{name}/Size", 'messages', size
@@ -98,11 +99,13 @@ queues.each do |q|
     rate = ((total - last_total) / dur.to_f).round(2)
   end
   @cache.put(key, total)
-  puts "Total was #{last_total}, now #{total}  [Rate #{rate} messages/sec]"
 
   component.add_metric "#{name}/Rate", 'messages/sec', rate
   overall[:rate] += rate
 end
+# p" ************************************************"
+# p OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version]
+# p OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ssl_version] = "SSLv23"
 
 component.add_metric 'All Queues/Total', 'messages', overall[:total]
 component.add_metric 'All Queues/Size', 'messages', overall[:size]
@@ -124,3 +127,5 @@ rescue Exception => err
 end
 
 processed_at(up_to)
+
+p "done"
