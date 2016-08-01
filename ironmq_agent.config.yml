@@ -5,6 +5,7 @@ iron_mq:
   project_id: 'mq-project-id'
   token: "mq-project-token"
   host: "iron-io-host-example.iron.io"
+  scheme: 'https'
   port: 443
 
 iron:
